@@ -1,0 +1,42 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS file within this directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the top of the
+* compiled file, but it's generally better to create a new file per style scope.
+*
+*= require_self
+*/
+
+html, body, .container, .content {
+    height: 100%;
+}
+
+.container, .content {
+    position: relative;
+}
+
+.proper-content {
+    padding-top: 40px; /* >= navbar height */
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -50px; /* same as the footer */
+}
+
+.push {
+    height: 50px; /* same as the footer */
+}
+.footer-wrapper {
+    position: relative;
+    height: 50px;
+}
+#footer {
+    background-color:#064244;
+}
+
