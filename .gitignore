@@ -22,9 +22,12 @@
 /*.zip
 /plugin.xml
 
-# older plugin install locations
 /plugins
 /web-app/plugins
+/web-app/WEB-INF/classes
 
-# "temporary" build files
+# "temporary files" build files
 /target
+
+/.idea/
+/*.iml
