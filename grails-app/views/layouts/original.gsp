@@ -11,50 +11,16 @@
     <asset:stylesheet src="bootstrap.min.css"/>
     <asset:stylesheet src="font-awesome.css"/>
     <asset:stylesheet src="style.css"/>
-    %{--<asset:stylesheet src="application.css"/>--}%
+    <asset:stylesheet src="application.css"/>
 
     <asset:javascript src="application.js"/>
     <asset:javascript src="bootstrap.min.js"/>
     <asset:javascript src="jquery.metisMenu.js"/>
     <asset:javascript src="inspinia.js"/>
 
-    <style>
-    html, body, .container, .content {
-        height: 100%;
-    }
-
-    .container, .content {
-        position: relative;
-    }
-
-    .proper-content {
-        padding-top: 40px; /* >= navbar height */
-    }
-
-    .wrapper {
-        min-height: 100%;
-        height: auto !important;
-        height: 100%;
-        margin: 0 auto -50px; /* same as the footer */
-    }
-
-    .push {
-        height: 50px; /* same as the footer */
-    }
-    .footer-wrapper {
-        position: relative;
-        height: 50px;
-    }
-    #footer {
-        background-color:#064244;
-    }
-    </style>
-
 </head>
 
 <body>
-
-<div id="wrapper">
 
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
@@ -62,7 +28,9 @@
 
                 <div class="dropdown profile-element">
                     <span>
-                        <img alt="image" class="img-responsive img-thumbnail" src="p6.jpg">
+                        <asset:image src="abc.jpg" class="img-responsive img-thumbnail"/>
+                        %{--<g:img dir="images" file="logo.png"  class="img-responsive img-thumbnail" alt="image" width="40" height="40"/>--}%
+                        %{--<img alt="image" class="img-responsive img-thumbnail" src="p6.jpg">--}%
                     </span>
                 </div>
 
@@ -182,51 +150,10 @@
         </div>
     </div>
 
-    <footer id="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col">
-                    <div class="block contact-block">
-                        <h3>
-                            Contact Us
-                        </h3>
-                        <address>
-                            <ul class="fa-ul">
-                                <li>
-                                    <abbr title="Phone"><i class="fa fa-li fa-phone"></i></abbr>
-                                    019223 8092344
-                                </li>
-                                <li>
-                                    <abbr title="Email"><i class="fa fa-li fa-envelope"></i></abbr>
-                                    info@appstraptheme.com
-                                </li>
-                            </ul>
-                        </address>
-                    </div>
-                </div>
+    <div class="container">
+        <g:layoutBody />
+    </div>
 
-                <div class="col-md-5 col">
-                    <div class="block">
-                        <h3>
-                            About Us
-                        </h3>
-                        <p>Making the web a prettier place one template at a time! We make beautiful, quality, responsive Drupal & web templates!</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col">
-                    <div class="block newsletter">
-                        <h3>
-                            Newsletter
-                        </h3>
-                        <p>Stay up to date with our latest news and product releases by signing up to our newsletter.</p>
-                    </div>
-                </div>
-              </div>
-            </div>
-    </footer>
-
-</div>
 </body>
 
 </html>
