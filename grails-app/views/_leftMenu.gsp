@@ -4,16 +4,18 @@
 
             <div class="dropdown profile-element">
                 <span>
-                    <img alt="image" class="img-responsive img-thumbnail" src="p6.jpg">
+                    <asset:image src="abc.jpg" class="img-responsive img-thumbnail"/>
+                    %{--<g:img dir="images" file="logo.png"  class="img-responsive img-thumbnail" alt="image" width="40" height="40"/>--}%
+                    %{--<img alt="image" class="img-responsive img-thumbnail" src="p6.jpg">--}%
                 </span>
             </div>
 
             <li class="active">
                 <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="graph_flot.html">Flot Charts</a></li>
-                    <li><a href="graph_morris.html">Morris.js Charts</a></li>
-                    <li><a href="graph_rickshaw.html">Rickshaw Charts</a></li>
+                    <li><a href="${g.createLink(controller: 'catName',action: 'index')}">Insert Category</a></li>
+                    <li><a href="${g.createLink(controller: 'subCat',action: 'index')}">Insert Sub Category</a></li>
+                    <li><a href="${g.createLink(controller: 'productName',action: 'index')}">Insert Product</a></li>
                     <li><a href="graph_peity.html">Peity Charts</a></li>
                     <li><a href="graph_sparkline.html">Sparkline Charts</a></li>
                 </ul>

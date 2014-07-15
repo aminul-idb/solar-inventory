@@ -1,6 +1,6 @@
 <html>
 <head>
-	<meta name='layout' content='main'/>
+    <meta name="layout" content="inventory"/>
 	<title><g:message code="springSecurity.login.title"/></title>
 	<style type='text/css' media='screen'>
 	#login {
@@ -93,26 +93,56 @@
 			<div class='login_message'>${flash.message}</div>
 		</g:if>
 
-		<form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
-			<p>
-				<label for='username'><g:message code="springSecurity.login.username.label"/>:</label>
-				<input type='text' class='text_' name='j_username' id='username'/>
-			</p>
+        <div class="ibox-content">
+		<form action='${postUrl}' method='POST' id='loginForm' class='form-horizontal' autocomplete='off'>
 
-			<p>
-				<label for='password'><g:message code="springSecurity.login.password.label"/>:</label>
-				<input type='password' class='text_' name='j_password' id='password'/>
-			</p>
+                    <p>Sign in today for more expirience.</p>
+                    <div class="form-group"><label for="username" class="col-lg-2 control-label">User Name</label>
 
-			<p id="remember_me_holder">
-				<input type='checkbox' class='chk' name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>/>
-				<label for='remember_me'><g:message code="springSecurity.login.remember.me.label"/></label>
-			</p>
+                        <div class="col-lg-10"><input type="text" id="username" name="j_username" value="admin" class="form-control">
+                        </div>
+                    </div>
 
-			<p>
-				<input type='submit' id="submit" value='${message(code: "springSecurity.login.button")}'/>
-			</p>
-		</form>
+                    <div class="form-group"><label for="password" class="col-lg-2 control-label">Password</label>
+
+                        <div class="col-lg-10"><input type="password" id="password" value="password" name="j_password" class="form-control"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> Remember me </label></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <input type='submit' id="submit"  class="btn btn-sm btn-white" type="submit"/>
+                        </div>
+                    </div>
+                </form>
+       </div>
+
+
+
+			%{--<p>--}%
+				%{--<label for='username'><g:message code="springSecurity.login.username.label"/>:</label>--}%
+				%{--<input type='text' class='text_' name='j_username' id='username'/>--}%
+			%{--</p>--}%
+
+			%{--<p>--}%
+				%{--<label for='password'><g:message code="springSecurity.login.password.label"/>:</label>--}%
+				%{--<input type='password' class='text_' name='j_password' id='password'/>--}%
+			%{--</p>--}%
+
+			%{--<p id="remember_me_holder">--}%
+				%{--<input type='checkbox' class='chk' name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>/>--}%
+				%{--<label for='remember_me'><g:message code="springSecurity.login.remember.me.label"/></label>--}%
+			%{--</p>--}%
+
+			%{--<p>--}%
+				%{--<input type='submit' id="submit" value='${message(code: "springSecurity.login.button")}'/>--}%
+			%{--</p>--}%
+		%{--</form>--}%
 	</div>
 </div>
 <script type='text/javascript'>
