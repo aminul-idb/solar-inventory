@@ -1,21 +1,32 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav" id="side-menu">
+            <li class="nav-header">
 
-            <div class="dropdown profile-element">
-                <span>
-                    <asset:image src="abc.jpg" class="img-responsive img-thumbnail"/>
-                    %{--<g:img dir="images" file="logo.png"  class="img-responsive img-thumbnail" alt="image" width="40" height="40"/>--}%
-                    %{--<img alt="image" class="img-responsive img-thumbnail" src="p6.jpg">--}%
-                </span>
-            </div>
+                <div class="dropdown profile-element"> <span>
+                    %{--<img alt="image" class="img-circle" src="img/profile_small.jpg">--}%
+                    <asset:image src="grails_logo.png" class="img-thumbnail img-responsive" alt="image"/>
+                    </span>
+                    <br>
 
-            <li class="active">
+                </div>
+
+            </li>
+            <li   class="active">
+                <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Settings</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="${g.createLink(controller: 'catName',action: 'index')}">Add Category</a></li>
+                    <li><a href="${g.createLink(controller: 'subCat',action: 'index')}">Add Sub Category</a></li>
+                    <li><a href="${g.createLink(controller: 'productName',action: 'index')}">Add Product</a></li>
+                </ul>
+            </li>
+
+            <li>
                 <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="${g.createLink(controller: 'catName',action: 'index')}">Insert Category</a></li>
-                    <li><a href="${g.createLink(controller: 'subCat',action: 'index')}">Insert Sub Category</a></li>
-                    <li><a href="${g.createLink(controller: 'productName',action: 'index')}">Insert Product</a></li>
+                    <li><a href="graph_flot.html">Flot Charts</a></li>
+                    <li><a href="graph_morris.html">Morris.js Charts</a></li>
+                    <li><a href="graph_rickshaw.html">Rickshaw Charts</a></li>
                     <li><a href="graph_peity.html">Peity Charts</a></li>
                     <li><a href="graph_sparkline.html">Sparkline Charts</a></li>
                 </ul>
@@ -41,67 +52,6 @@
                     <li><a href="form_editors.html">Text Editor</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">App Views</span>  <span class="pull-right label label-primary">SPECIAL</span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="contacts.html">Contacts</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="file_manager.html">File manager</a></li>
-                    <li><a href="calendar.html">Calendar</a></li>
-                    <li><a href="timeline.html">Timeline</a></li>
-                    <li><a href="pin_board.html">Pin board</a></li>
-                    <li><a href="invoice.html">Invoice</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Register</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="search_results.html">Search results</a></li>
-                    <li><a href="lockscreen.html">Lockscreen</a></li>
-                    <li><a href="404.html">404 Page</a></li>
-                    <li><a href="500.html">500 Page</a></li>
-                    <li><a href="empty_page.html">Empty page</a></li>
-                </ul>
-            </li>
-
-            <li>
-                <a href="#"><i class="fa fa-flask"></i> <span class="nav-label">UI Elements</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="typography.html">Typography</a></li>
-                    <li><a href="icons.html">Icons</a></li>
-                    <li><a href="draggable_panels.html">Draggable Panels</a></li>
-                    <li><a href="buttons.html">Buttons</a></li>
-                    <li><a href="tabs_panels.html">Tabs & Panels</a></li>
-                    <li><a href="notifications.html">Notifications & Tooltips</a></li>
-                    <li class="active"><a href="badges_labels.html">Badges, Labels, Progress</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Layout</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="grid_options.html">Grid options</a></li>
-                    <li><a href="boxed_layout.html">Boxed layout</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="table_basic.html">Static Tables</a></li>
-                    <li><a href="table_data_tables.html">Data Tables</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">Gallery</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="basic_gallery.html">Basic Gallery</a></li>
-                    <li><a href="carousel.html">Bootstrap Carusela</a></li>
-
-                </ul>
-            </li>
-
         </ul>
-
     </div>
 </nav>
