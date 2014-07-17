@@ -4,7 +4,7 @@ class ProductName {
 
     String name
     String description
-    boolean status = true
+    Status status
 
     static constraints = {
         name nullable: false, unique: true

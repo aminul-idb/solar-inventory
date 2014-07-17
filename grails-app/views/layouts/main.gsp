@@ -30,7 +30,7 @@
 
         <g:render template='/header'/>
 
-                        <g:layoutBody/>
+        <g:layoutBody/>
 
     </div>
 </div>

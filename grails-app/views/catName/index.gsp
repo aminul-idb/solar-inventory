@@ -38,13 +38,6 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <section class="panel">
-                            <header class="panel-heading">
-                                Create Class
-                                <span class="tools pull-right">
-                                    <a class="fa fa-chevron-down" href="javascript:;"></a>
-                                </span>
-                            </header>
-
                             <div class="panel-body">
                                 <div class="form">
                                     <form class="cmxform form-horizontal " id="create-form">
@@ -52,27 +45,37 @@
 
                                         <div class="form-group col-md-4">
                                             <div class="col-md-12">
-                                                <label class="control-label">Class Name</label>
+                                                <label for="name" class="control-label">Category Name</label>
                                                 <g:textField class="form-control" id="name" tabindex="1" name="name"
-                                                             placeholder="Enter Class Name."/>
+                                                             placeholder="Enter Category Name."/>
                                                 <span for="name" class="help-block"></span>
                                             </div>
                                         </div>
 
                                         <div class="form-group col-md-4">
                                             <div class="col-md-12">
-                                                <label class="control-label">Description</label>
+                                                <label for="description" class="control-label">Category Description</label>
                                                 <g:textField class="form-control" id="description" tabindex="2"
                                                              name="description" placeholder="Enter Description."/>
                                                 <span class="help-block" for="description"></span>
                                             </div>
                                         </div>
 
+                                        <div class="form-group col-md-4">
+                                            <div class="col-md-12">
+                                            <label class=" control-label">Status </label><br>
+                                                <g:select class="form-control" id="status" name='status'
+                                                          noSelection="${['': 'Select One...']}"
+                                                          from='${com.startup.inventory.Status.values()}'
+                                                          optionKey="key" optionValue="value"></g:select>
+                                                <span class="help-block" for="status"></span>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group">
                                             <div class="col-md-offset-8 col-lg-4">
-                                                <button class="btn btn-primary" tabindex="3" type="submit">Save</button>
-                                                <button class="btn btn-default" tabindex="4"
-                                                        type="reset">Cancel</button>
+                                                <button name="submit" class="btn btn-primary" tabindex="3" type="submit">Save</button>
+                                                <button class="btn btn-default" tabindex="4" type="reset">Cancel</button>
                                             </div>
                                         </div>
 
@@ -95,10 +98,6 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <section class="panel">
-                            <header class="panel-heading">
-                                Category List
-
-                            </header>
 
                             <div class="panel-body">
                                 <div class="table-responsive">
@@ -153,14 +152,15 @@
 
 <script>
 
+
     $('#create-form').validate({
-        errorElement: 'span',
+        errorElement: 'label',
         errorClass: 'help-block',
         focusInvalid: false,
         rules: {
             name: {
                 required: true,
-                maxlength: 200
+                minlength: 2
             },
             description: {
                 maxlength: 200
@@ -168,10 +168,11 @@
         },
         messages: {
             name: {
-                required: "Class Name required"
+                required: "Please provide a Name",
+                minlength: "Your password must be at least 2 characters long"
             }
         },
-        invalidHandler: function (event, validator) { //display error alert on form submit
+        invalidHandler: function (event, validator) {
             $('.alert-danger', $('#currencyForm')).show();
         },
 
@@ -193,7 +194,11 @@
                     clearForm(form);
                     var table = $('#list-table').DataTable();
                     table.ajax.reload();
-                    $.growl('Class Name Created successfully!', { type: 'success' });
+                    setTimeout(function() {
+                        $.gritter.add({
+                            title: data.message
+                        });
+                    }, 2000);
                 },
                 failure: function (data) {
                 }
@@ -229,6 +234,7 @@
             $("#name").focus();
             e.preventDefault();
         });
+
         $('#list-table').on('click', 'a.edit-reference', function (e) {
             var control = this;
             var referenceId = $(control).attr('referenceId');
@@ -242,6 +248,7 @@
                         $('#id').val(data.obj.id);
                         $('#name').val(data.obj.name);
                         $('#description').val(data.obj.description);
+                        $('#status').val(data.obj.status ? data.obj.status.name:'');
                         $("#catNameCreate").show(500);
                         $("#name").focus();
                     } else {
