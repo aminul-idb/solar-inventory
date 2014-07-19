@@ -6,7 +6,7 @@ package com.startup.inventory
 public enum Status {
 
     ACTIVE("Active"),
-    INACTIVE("InActive"),
+    INACTIVE("In Active"),
 
 
     final String value

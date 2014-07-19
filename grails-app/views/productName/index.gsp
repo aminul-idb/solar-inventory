@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Create Category</title>
+    <title>Create Product</title>
     <asset:stylesheet src="formDataTable.css"/>
     <asset:javascript src="formDataTable.js"/>
 
@@ -30,7 +30,7 @@
 
 </div>
 
-<div class="row" id="catNameCreate" style="display:none">
+<div class="row" id="productNameCreate" style="display:none">
     <div class="col-lg-12">
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="ibox-content p-xl">
@@ -63,7 +63,7 @@
 
                                         <div class="form-group col-md-4">
                                             <div class="col-md-12">
-                                            <label for="status" class=" control-label">Status </label><br>
+                                                <label for="status" class=" control-label">Status </label><br>
                                                 <g:select class="form-control" id="status" name='status'
                                                           noSelection="${['': 'Select One...']}"
                                                           from='${com.startup.inventory.Status.values()}'
@@ -112,24 +112,24 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <g:each in="${dataReturn}" var="catName">
+                                        <g:each in="${dataReturn}" var="productName">
                                             <tr>
-                                                <td>${catName[0]}</td>
-                                                <td>${catName[1]}</td>
-                                                <td>${catName[2]}</td>
-                                                <td>${catName[3]}</td>
+                                                <td>${productName[0]}</td>
+                                                <td>${productName[1]}</td>
+                                                <td>${productName[2]}</td>
+                                                <td>${productName[3]}</td>
                                                 <td>
-                                                    <sec:access controller="catName" action="edit">
+                                                    <sec:access controller="productName" action="edit">
                                                         <span class="col-xs-6"><a href=""
-                                                                                  referenceId="${catName.DT_RowId}"
+                                                                                  referenceId="${productName.DT_RowId}"
                                                                                   class="edit-reference"
                                                                                   title="Edit"><span
                                                                     class="green fa fa-edit"></span>&nbsp;Edit&nbsp;</a>
                                                         </span>
                                                     </sec:access>
-                                                    <sec:access controller="catName" action="delete">
+                                                    <sec:access controller="productName" action="delete">
                                                         <span class="col-xs-6"><a href=""
-                                                                                  referenceId="${catName.DT_RowId}"
+                                                                                  referenceId="${productName.DT_RowId}"
                                                                                   class="delete-reference"
                                                                                   title="Delete"><span
                                                                     class="green fa fa-cut"></span>&nbsp;Delete&nbsp;
@@ -188,7 +188,7 @@
         },
         submitHandler: function (form) {
             $.ajax({
-                url: "${createLink(controller: 'catName', action: 'save')}",
+                url: "${createLink(controller: 'productName', action: 'save')}",
                 type: 'post',
                 dataType: "json",
                 data: $("#create-form").serialize(),
@@ -215,7 +215,7 @@
             "bAutoWidth": true,
             "bServerSide": true,
             "deferLoading": ${totalCount},
-            "sAjaxSource": "${g.createLink(controller: 'catName',action: 'list')}",
+            "sAjaxSource": "${g.createLink(controller: 'productName',action: 'list')}",
             "fnRowCallback": function (nRow, aData, iDisplayIndex) {
                 if (aData.DT_RowId == undefined) {
                     return true;
@@ -233,7 +233,7 @@
             ]
         });
         $('#add-new-btn').click(function (e) {
-            $("#catNameCreate").toggle(500);
+            $("#productNameCreate").toggle(500);
             $("#name").focus();
             e.preventDefault();
         });
@@ -244,7 +244,7 @@
             jQuery.ajax({
                 type: 'POST',
                 dataType: 'JSON',
-                url: "${g.createLink(controller: 'catName',action: 'edit')}?id=" + referenceId,
+                url: "${g.createLink(controller: 'productName',action: 'edit')}?id=" + referenceId,
                 success: function (data, textStatus) {
                     if (data.isError == false) {
                         clearForm('#create-form');
@@ -252,7 +252,7 @@
                         $('#name').val(data.obj.name);
                         $('#description').val(data.obj.description);
                         $('#status').val(data.obj.status ? data.obj.status.name :'');
-                        $("#catNameCreate").show(500);
+                        $("#productNameCreate").show(500);
                         $("#name").focus();
                     } else {
                         alert(data.message);
@@ -273,7 +273,7 @@
                 jQuery.ajax({
                     type: 'POST',
                     dataType: 'JSON',
-                    url: "${g.createLink(controller: 'catName',action: 'delete')}?id=" + referenceId,
+                    url: "${g.createLink(controller: 'productName',action: 'delete')}?id=" + referenceId,
                     success: function (data, textStatus) {
                         if (data.isError == false) {
                             $("#list-table").DataTable().row(selectRow).remove().draw();
@@ -291,10 +291,10 @@
 
     function getActionButtons(nRow, aData) {
         var actionButtons = "";
-        actionButtons += '<sec:access controller="catName" action="edit"><span class="col-xs-6"><a href="" referenceId="' + aData.DT_RowId + '" class="edit-reference" title="Edit">';
+        actionButtons += '<sec:access controller="productName" action="edit"><span class="col-xs-6"><a href="" referenceId="' + aData.DT_RowId + '" class="edit-reference" title="Edit">';
         actionButtons += '<span class="green green fa fa-edit"></span>';
         actionButtons += '&nbsp;Edit&nbsp;</a></span></sec:access>';
-        actionButtons += '<sec:access controller="catName" action="delete"><span class="col-xs-6"><a href="" referenceId="' + aData.DT_RowId + '" class="delete-reference" title="Delete">';
+        actionButtons += '<sec:access controller="productName" action="delete"><span class="col-xs-6"><a href="" referenceId="' + aData.DT_RowId + '" class="delete-reference" title="Delete">';
         actionButtons += '<span class="red green fa fa-cut"></span>';
         actionButtons += '&nbsp;Delete&nbsp;</a></span></sec:access>';
         return actionButtons;
