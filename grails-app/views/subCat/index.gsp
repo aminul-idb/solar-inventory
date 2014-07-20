@@ -72,6 +72,17 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group col-md-4">
+                                            <div class="col-md-12">
+                                                <label for="catName" class=" control-label">Category Name </label><br>
+                                                <g:select class="form-control" id="catName" name='catName'
+                                                          noSelection="${['': 'Select One...']}"
+                                                          from='${com.startup.inventory.CatName.list()}'
+                                                          optionKey="id" optionValue="name"></g:select>
+                                                <span class="help-block" for="productName"></span>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group">
                                             <div class="col-md-offset-8 col-lg-4">
                                                 <button name="submit" class="btn btn-primary" tabindex="3" type="submit">Save</button>
@@ -108,6 +119,7 @@
                                             <th>Name</th>
                                             <th>Description</th>
                                             <th>Status</th>
+                                            <th>Category</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -118,6 +130,7 @@
                                                 <td>${subCat[1]}</td>
                                                 <td>${subCat[2]}</td>
                                                 <td>${subCat[3]}</td>
+                                                <td>${subCat[4]}</td>
                                                 <td>
                                                     <sec:access controller="subCat" action="edit">
                                                         <span class="col-xs-6"><a href=""
@@ -166,6 +179,12 @@
             },
             description: {
                 maxlength: 200
+            },
+            status: {
+                required: true
+            },
+            catName: {
+                required: true
             }
         },
         messages: {
@@ -220,12 +239,13 @@
                 if (aData.DT_RowId == undefined) {
                     return true;
                 }
-                $('td:eq(4)', nRow).html(getActionButtons(nRow, aData));
+                $('td:eq(5)', nRow).html(getActionButtons(nRow, aData));
                 return nRow;
             },
             "aoColumns": [
                 null,
                 null,
+                { "bSortable": false },
                 { "bSortable": false },
                 { "bSortable": false },
                 { "bSortable": false }
@@ -252,6 +272,7 @@
                         $('#name').val(data.obj.name);
                         $('#description').val(data.obj.description);
                         $('#status').val(data.obj.status ? data.obj.status.name :'');
+                        $('#catName').val(data.obj.catName ? data.obj.catName.id :'');
                         $("#subCatCreate").show(500);
                         $("#name").focus();
                     } else {

@@ -22,10 +22,10 @@
             </li>
 
             <li>
-                <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Entry</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="graph_flot.html">Flot Charts</a></li>
-                    <li><a href="graph_morris.html">Morris.js Charts</a></li>
+                    <li><a href="graph_flot.html">Product Entry</a></li>
+                    <li><a href="graph_morris.html">Product Distribution</a></li>
                     <li><a href="graph_rickshaw.html">Rickshaw Charts</a></li>
                     <li><a href="graph_peity.html">Peity Charts</a></li>
                     <li><a href="graph_sparkline.html">Sparkline Charts</a></li>

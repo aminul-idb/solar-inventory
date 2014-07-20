@@ -2,6 +2,7 @@ package com.startup.inventory
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import grails.transaction.Transactional
 import org.springframework.dao.DataIntegrityViolationException
 
 @Secured(['ROLE_SUPER_ADMIN'])
@@ -38,64 +39,36 @@ class ProductNameController {
 
     }
 
-    def save(ProductNameCommand productNameCommand) {
+    @Transactional
+    def save(ProductName productName) {
 
-        print("status----------------------" + params)
-
-        if (!request.method == 'POST') {
-            redirect(action: 'index')
-            return
-        }
         LinkedHashMap result = new LinkedHashMap()
         result.put('isError', true)
         String outPut
-        if (productNameCommand.hasErrors()) {
-            result.put('message', 'Please fill the form correctly')
+
+        if (productName == null) {
+            result.put('isError', true)
+            result.put('message', 'Product Updated Failed')
             outPut = result as JSON
             render outPut
             return
         }
-        ProductName productName
-        if (params.id) { //update Product
-            productName = ProductName.get(productNameCommand.id)
-            if (!productName) {
-                result.put('message', 'Product not found')
-                outPut = result as JSON
-                render outPut
-                return
-            }
-            productName.properties = productNameCommand.properties
-            if (!productName.validate()) {
-                result.put('message', 'Please fill the form correctly')
-                outPut = result as JSON
-                render outPut
-                return
-            }
-            ProductName savedClass = productName.save()
+
+        if (productName.hasErrors()) {
             result.put('isError', false)
-            result.put('message', 'Product Updated successfully')
+            result.put('message', 'Product Updated Failed')
             outPut = result as JSON
             render outPut
             return
         }
-        productName = new ProductName(productNameCommand.properties)
-        if (!productNameCommand.validate()) {
-            result.put('message', 'Please fill the form correctly')
-            outPut = result as JSON
-            render outPut
-            return
-        }
-        ProductName savedCurr = productName.save(flush: true)
-        if (!savedCurr) {
-            result.put('message', 'Please fill the form correctly')
-            outPut = result as JSON
-            render outPut
-            return
-        }
+
+        productName.save flush:true
         result.put('isError', false)
-        result.put('message', 'Product Inserted successfully')
+        result.put('message', 'Product Updated successfully')
         outPut = result as JSON
         render outPut
+        return
+
     }
 
     def edit(Long id) {

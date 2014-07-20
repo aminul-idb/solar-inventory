@@ -166,6 +166,9 @@
             },
             description: {
                 maxlength: 200
+            },
+            status: {
+                required: true
             }
         },
         messages: {

@@ -2,6 +2,7 @@ package com.startup.inventory
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import grails.transaction.Transactional
 import org.springframework.dao.DataIntegrityViolationException
 
 @Secured(['ROLE_SUPER_ADMIN'])
@@ -38,64 +39,36 @@ class SubCatController {
 
     }
 
-    def save(SubCatCommand subCatCommand) {
+    @Transactional
+    def save(SubCat subCat) {
 
-        print("status----------------------" + params)
-
-        if (!request.method == 'POST') {
-            redirect(action: 'index')
-            return
-        }
         LinkedHashMap result = new LinkedHashMap()
         result.put('isError', true)
         String outPut
-        if (subCatCommand.hasErrors()) {
-            result.put('message', 'Please fill the form correctly')
+
+        if (subCat == null) {
+            result.put('isError', true)
+            result.put('message', 'Sub Category Updated Failed')
             outPut = result as JSON
             render outPut
             return
         }
-        SubCat subCat
-        if (params.id) { //update Sub Sub Category
-            subCat = SubCat.get(subCatCommand.id)
-            if (!subCat) {
-                result.put('message', 'Sub Sub Category not found')
-                outPut = result as JSON
-                render outPut
-                return
-            }
-            subCat.properties = subCatCommand.properties
-            if (!subCat.validate()) {
-                result.put('message', 'Please fill the form correctly')
-                outPut = result as JSON
-                render outPut
-                return
-            }
-            SubCat savedClass = subCat.save()
+
+        if (subCat.hasErrors()) {
             result.put('isError', false)
-            result.put('message', 'Sub Sub Category Updated successfully')
+            result.put('message', 'Sub Category Updated Failed')
             outPut = result as JSON
             render outPut
             return
         }
-        subCat = new SubCat(subCatCommand.properties)
-        if (!subCatCommand.validate()) {
-            result.put('message', 'Please fill the form correctly')
-            outPut = result as JSON
-            render outPut
-            return
-        }
-        SubCat savedCurr = subCat.save(flush: true)
-        if (!savedCurr) {
-            result.put('message', 'Please fill the form correctly')
-            outPut = result as JSON
-            render outPut
-            return
-        }
+
+        subCat.save flush:true
         result.put('isError', false)
-        result.put('message', 'Sub Sub Category Inserted successfully')
+        result.put('message', 'Sub Category Updated successfully')
         outPut = result as JSON
         render outPut
+        return
+
     }
 
     def edit(Long id) {

@@ -10,9 +10,9 @@ class BootStrap {
 
     def init = { servletContext ->
         createUserWithRole()
-        createCategory()
-        createSubCategory()
-        createItem()
+//        createCategory()
+//        createSubCategory()
+//        createItem()
     }
 
     void createCategory(){

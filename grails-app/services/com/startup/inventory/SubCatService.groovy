@@ -41,7 +41,7 @@ class SubCatService {
                 } else {
                     serial--
                 }
-                dataReturns.add([DT_RowId: subCat.id, 0: serial, 1: subCat.name,2:subCat.description, 3:subCat.status.name(), 4: ''])
+                dataReturns.add([DT_RowId: subCat.id, 0: serial, 1: subCat.name,2:subCat.description, 3:subCat.status.name(),4:subCat.catName.name , 5: ''])
             }
         }
         return [totalCount:totalCount,results:dataReturns]

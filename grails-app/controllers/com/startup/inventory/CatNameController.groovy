@@ -3,6 +3,7 @@ package com.startup.inventory
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import com.startup.inventory.CatName
+import grails.transaction.Transactional
 import org.springframework.dao.DataIntegrityViolationException
 
 @Secured(['ROLE_SUPER_ADMIN'])
@@ -38,64 +39,36 @@ class CatNameController {
 
     }
 
-    def save(CatNameCommand catNameCommand) {
+    @Transactional
+    def save(CatName catName) {
 
-        print("status----------------------" + params)
-
-        if (!request.method == 'POST') {
-            redirect(action: 'index')
-            return
-        }
         LinkedHashMap result = new LinkedHashMap()
         result.put('isError', true)
         String outPut
-        if (catNameCommand.hasErrors()) {
-            result.put('message', 'Please fill the form correctly')
+
+        if (catName == null) {
+            result.put('isError', true)
+            result.put('message', 'Category Updated Failed')
             outPut = result as JSON
             render outPut
             return
         }
-        CatName catName
-        if (params.id) { //update Category
-            catName = CatName.get(catNameCommand.id)
-            if (!catName) {
-                result.put('message', 'Category not found')
-                outPut = result as JSON
-                render outPut
-                return
-            }
-            catName.properties = catNameCommand.properties
-            if (!catName.validate()) {
-                result.put('message', 'Please fill the form correctly')
-                outPut = result as JSON
-                render outPut
-                return
-            }
-            CatName savedClass = catName.save()
+
+        if (catName.hasErrors()) {
             result.put('isError', false)
-            result.put('message', 'Category Updated successfully')
+            result.put('message', 'Category Updated Failed')
             outPut = result as JSON
             render outPut
             return
         }
-        catName = new CatName(catNameCommand.properties)
-        if (!catNameCommand.validate()) {
-            result.put('message', 'Please fill the form correctly')
-            outPut = result as JSON
-            render outPut
-            return
-        }
-        CatName savedCurr = catName.save(flush: true)
-        if (!savedCurr) {
-            result.put('message', 'Please fill the form correctly')
-            outPut = result as JSON
-            render outPut
-            return
-        }
+
+        catName.save flush:true
         result.put('isError', false)
-        result.put('message', 'Category Inserted successfully')
+        result.put('message', 'Category Updated successfully')
         outPut = result as JSON
         render outPut
+        return
+
     }
 
     def edit(Long id) {
