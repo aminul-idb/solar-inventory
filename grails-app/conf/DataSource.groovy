@@ -17,7 +17,7 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:mysql://localhost/inventory?useUnicode=yes&characterEncoding=UTF-8"
 
         }
@@ -32,8 +32,9 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/inventory?useUnicode=yes&characterEncoding=UTF-8"
-
+            url = "jdbc:mysql://mysql-solar-tech.jelastic.servint.net/inventory?useUnicode=yes&characterEncoding=UTF-8"
+            password = "kiowKEUG9W"
+            username = "root"
             properties {
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                jmxEnabled = true

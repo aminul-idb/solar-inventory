@@ -2,16 +2,16 @@ package com.startup.inventory
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
-import com.startup.inventory.CatName
 import grails.transaction.Transactional
 import org.springframework.dao.DataIntegrityViolationException
 
 @Secured(['ROLE_SUPER_ADMIN'])
-class CatNameController {
-    def catNameService
+class ImportController {
+
+    def importService
 
     def index() {
-        LinkedHashMap resultMap = catNameService.catNamePaginateList(params)
+        LinkedHashMap resultMap = importService.importPaginateList(params)
 
         if (!resultMap || resultMap.totalCount == 0) {
             render(view: 'index', model: [dataReturn: null, totalCount: 0])
@@ -24,7 +24,7 @@ class CatNameController {
     def list() {
         LinkedHashMap gridData
         String result
-        LinkedHashMap resultMap = catNameService.catNamePaginateList(params)
+        LinkedHashMap resultMap = importService.importPaginateList(params)
 
         if (!resultMap || resultMap.totalCount == 0) {
             gridData = [iTotalRecords: 0, iTotalDisplayRecords: 0, aaData: null]
@@ -40,31 +40,37 @@ class CatNameController {
     }
 
     @Transactional
-    def save(CatName catName) {
+    def save(Import anImport) {
+
+        print("Params-------"+params)
 
         LinkedHashMap result = new LinkedHashMap()
         result.put('isError', true)
         String outPut
 
-        if (catName == null) {
+        anImport.entryDate=new Date()
+//        anImport.importDate=new Date()
+
+        if (anImport == null) {
             result.put('isError', true)
-            result.put('message', 'Category Updated Failed')
+            result.put('message', 'Import Updated Failed')
             outPut = result as JSON
             render outPut
             return
         }
 
-        if (catName.hasErrors()) {
+        if (anImport.hasErrors()) {
             result.put('isError', true)
-            result.put('message', 'Category Updated Failed')
+            result.put('message', 'Import Updated Failed')
             outPut = result as JSON
             render outPut
             return
         }
 
-        catName.save flush:true
+
+        anImport.save flush:true
         result.put('isError', false)
-        result.put('message', 'Category Updated successfully')
+        result.put('message', 'Import Updated successfully')
         outPut = result as JSON
         render outPut
         return
@@ -79,15 +85,15 @@ class CatNameController {
         LinkedHashMap result = new LinkedHashMap()
         result.put('isError', true)
         String outPut
-        CatName catName = CatName.read(id)
-        if (!catName) {
-            result.put('message', 'Category name not found')
+        Import anImport = Import.read(id)
+        if (!anImport) {
+            result.put('message', 'Import name not found')
             outPut = result as JSON
             render outPut
             return
         }
         result.put('isError', false)
-        result.put('obj', catName)
+        result.put('obj', anImport)
         outPut = result as JSON
         render outPut
     }
@@ -96,12 +102,12 @@ class CatNameController {
         LinkedHashMap result = new LinkedHashMap()
         result.put('isError', true)
         String outPut
-        CatName catName = CatName.get(id)
-        if (catName) {
+        Import anImport = Import.get(id)
+        if (anImport) {
             try {
-                catName.delete(flush: true)
+                anImport.delete(flush: true)
                 result.put('isError', false)
-                result.put('message', "Category deleted successfully.")
+                result.put('message', "Import deleted successfully.")
                 outPut = result as JSON
                 render outPut
                 return
@@ -110,7 +116,7 @@ class CatNameController {
 
             catch (DataIntegrityViolationException e) {
                 result.put('isError', true)
-                result.put('message', "Category could not deleted. Already in use.")
+                result.put('message', "Import could not deleted. Already in use.")
                 outPut = result as JSON
                 render outPut
                 return
@@ -118,25 +124,9 @@ class CatNameController {
 
         }
         result.put('isError', true)
-        result.put('message', "Category not found")
+        result.put('message', "Import not found")
         outPut = result as JSON
         render outPut
         return
-    }
-}
-
-
-class CatNameCommand{
-
-    Long id
-    String name
-    String description
-    Status status
-
-    static constraints = {
-        id nullable: true
-        name nullable: false
-        description nullable: true
-        status nullable: true
     }
 }

@@ -84,6 +84,7 @@ grails.hibernate.cache.queries = false
 grails.hibernate.pass.readonly = false
 // configure passing read-only to OSIV session by default, requires "singleSession = false" OSIV mode
 grails.hibernate.osiv.readonly = false
+grails.databinding.dateFormats = ['dd/MM/yyyy']
 
 environments {
     development {
@@ -128,7 +129,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/assets/**':                     ['permitAll'],
 	'/**/js/**':                      ['permitAll'],
 	'/**/css/**':                     ['permitAll'],
-	'/**/font-awesome/**':                     ['permitAll'],
+	'/**/font-awesome/**':            ['permitAll'],
 	'/**/images/**':                  ['permitAll'],
 	'/**/favicon.ico':                ['permitAll']
 ]

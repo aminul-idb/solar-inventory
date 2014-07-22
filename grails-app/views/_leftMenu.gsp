@@ -5,7 +5,7 @@
 
                 <div class="dropdown profile-element"> <span>
                     %{--<img alt="image" class="img-circle" src="img/profile_small.jpg">--}%
-                    <asset:image src="grails_logo.png" class="img-thumbnail img-responsive" alt="image"/>
+                    <asset:image src="abc.jpg" class="img-thumbnail img-responsive" alt="image"/>
                     </span>
                     <br>
 
@@ -22,9 +22,9 @@
             </li>
 
             <li>
-                <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Entry</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Product Manipulation</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="graph_flot.html">Product Entry</a></li>
+                    <li><a href="${g.createLink(controller: 'import',action: 'index')}">Product Import</a></li>
                     <li><a href="graph_morris.html">Product Distribution</a></li>
                     <li><a href="graph_rickshaw.html">Rickshaw Charts</a></li>
                     <li><a href="graph_peity.html">Peity Charts</a></li>
