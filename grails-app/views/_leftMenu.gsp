@@ -16,7 +16,7 @@
                 <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Settings</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li><a href="${g.createLink(controller: 'catName',action: 'index')}">Add Category</a></li>
-                    <li><a href="${g.createLink(controller: 'subCat',action: 'index')}">Add Sub Category</a></li>
+                    %{--<li><a href="${g.createLink(controller: 'subCat',action: 'index')}">Add Sub Category</a></li>--}%
                     <li><a href="${g.createLink(controller: 'productName',action: 'index')}">Add Product</a></li>
                 </ul>
             </li>

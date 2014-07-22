@@ -45,19 +45,30 @@
 
                                         <div class="form-group col-md-4">
                                             <div class="col-md-12">
-                                                <label for="name" class="control-label">Category Name</label>
+                                                <label for="name" class="control-label">Product Name</label>
                                                 <g:textField class="form-control" id="name" tabindex="1" name="name"
-                                                             placeholder="Enter Category Name."/>
+                                                             placeholder="Enter Product Name."/>
                                                 <span for="name" class="help-block"></span>
                                             </div>
                                         </div>
 
                                         <div class="form-group col-md-4">
                                             <div class="col-md-12">
-                                                <label for="description" class="control-label">Category Description</label>
+                                                <label for="description" class="control-label">Product Description</label>
                                                 <g:textField class="form-control" id="description" tabindex="2"
                                                              name="description" placeholder="Enter Description."/>
                                                 <span class="help-block" for="description"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <div class="col-md-12">
+                                                <label for="catName" class=" control-label">Category</label><br>
+                                                <g:select class="form-control" id="catName" name='catName'
+                                                          noSelection="${['': 'Select One...']}"
+                                                          from='${com.startup.inventory.CatName.list()}'
+                                                          optionKey="id" optionValue="name"></g:select>
+                                                <span class="help-block" for="productName"></span>
                                             </div>
                                         </div>
 
@@ -69,17 +80,6 @@
                                                           from='${com.startup.inventory.Status.values()}'
                                                           optionKey="key" optionValue="value"></g:select>
                                                 <span class="help-block" for="status"></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group col-md-4">
-                                            <div class="col-md-12">
-                                                <label for="subCat" class=" control-label">Sub Category</label><br>
-                                                <g:select class="form-control" id="subCat" name='subCat'
-                                                          noSelection="${['': 'Select One...']}"
-                                                          from='${com.startup.inventory.SubCat.list()}'
-                                                          optionKey="id" optionValue="name"></g:select>
-                                                <span class="help-block" for="productName"></span>
                                             </div>
                                         </div>
 
@@ -119,7 +119,7 @@
                                             <th>Name</th>
                                             <th>Description</th>
                                             <th>Status</th>
-                                            <th>Sub Cat</th>
+                                            <th>Category</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -272,7 +272,7 @@
                         $('#name').val(data.obj.name);
                         $('#description').val(data.obj.description);
                         $('#status').val(data.obj.status ? data.obj.status.name :'');
-                        $('#subCat').val(data.obj.subCat ? data.obj.subCat.id :'');
+                        $('#catName').val(data.obj.subCat ? data.obj.catName.id :'');
                         $("#productNameCreate").show(500);
                         $("#name").focus();
                     } else {

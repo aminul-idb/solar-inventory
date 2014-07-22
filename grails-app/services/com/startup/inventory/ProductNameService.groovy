@@ -25,7 +25,6 @@ class ProductNameService {
             if (sSearch) {
                 like("name", sSearch)
             }
-
             order(sortColumn, sSortDir)
         }
         int totalCount = results.totalCount
@@ -40,7 +39,7 @@ class ProductNameService {
                 } else {
                     serial--
                 }
-                dataReturns.add([DT_RowId: productName.id, 0: serial, 1: productName.name,2:productName.description, 3:productName.status.name(),4:productName.subCat.name, 5: ''])
+                dataReturns.add([DT_RowId: productName.id, 0: serial, 1: productName.name,2:productName.description, 3:productName.status.name(),4:productName.catName.name, 5: ''])
             }
         }
         return [totalCount:totalCount,results:dataReturns]
