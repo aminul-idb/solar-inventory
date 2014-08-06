@@ -41,11 +41,10 @@ class ImportController {
 
     }
 
-    //@Transactional
+    @Transactional
     def save() {
 
-        print(">>" + params)
-
+        print("hhhhhhhhhhhhhh>>" + params)
 
         LinkedHashMap result = new LinkedHashMap()
         result.put('isError', true)
