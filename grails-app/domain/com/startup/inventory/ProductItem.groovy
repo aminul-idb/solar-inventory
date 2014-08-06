@@ -1,11 +1,11 @@
 package com.startup.inventory
 
-class SubCat {
+class ProductItem {
 
     String name
     String description
     Status status
-    static belongsTo = [catName: CatName]
+    static belongsTo = [categoryType: CategoryType]
 
     static constraints = {
         name nullable: false, unique: true

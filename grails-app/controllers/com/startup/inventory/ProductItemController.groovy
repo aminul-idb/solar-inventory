@@ -6,12 +6,12 @@ import grails.transaction.Transactional
 import org.springframework.dao.DataIntegrityViolationException
 
 @Secured(['ROLE_SUPER_ADMIN'])
-class ProductNameController {
+class ProductItemController {
 
-    def productNameService
+    def productItemService
 
     def index() {
-        LinkedHashMap resultMap = productNameService.productNamePaginateList(params)
+        LinkedHashMap resultMap = productItemService.productNamePaginateList(params)
 
         if (!resultMap || resultMap.totalCount == 0) {
             render(view: 'index', model: [dataReturn: null, totalCount: 0])
@@ -24,7 +24,7 @@ class ProductNameController {
     def list() {
         LinkedHashMap gridData
         String result
-        LinkedHashMap resultMap = productNameService.productNamePaginateList(params)
+        LinkedHashMap resultMap = productItemService.productNamePaginateList(params)
 
         if (!resultMap || resultMap.totalCount == 0) {
             gridData = [iTotalRecords: 0, iTotalDisplayRecords: 0, aaData: null]
@@ -40,13 +40,13 @@ class ProductNameController {
     }
 
     @Transactional
-    def save(ProductName productName) {
+    def save(ProductItem productItem) {
 
         LinkedHashMap result = new LinkedHashMap()
         result.put('isError', true)
         String outPut
 
-        if (productName == null) {
+        if (productItem == null) {
             result.put('isError', true)
             result.put('message', 'Product Updated Failed')
             outPut = result as JSON
@@ -54,7 +54,7 @@ class ProductNameController {
             return
         }
 
-        if (productName.hasErrors()) {
+        if (productItem.hasErrors()) {
             result.put('isError', false)
             result.put('message', 'Product Updated Failed')
             outPut = result as JSON
@@ -62,7 +62,7 @@ class ProductNameController {
             return
         }
 
-        productName.save flush:true
+        productItem.save flush:true
         result.put('isError', false)
         result.put('message', 'Product Updated successfully')
         outPut = result as JSON
@@ -79,15 +79,15 @@ class ProductNameController {
         LinkedHashMap result = new LinkedHashMap()
         result.put('isError', true)
         String outPut
-        ProductName productName = ProductName.read(id)
-        if (!productName) {
+        ProductItem productItem = ProductItem.read(id)
+        if (!productItem) {
             result.put('message', 'Product name not found')
             outPut = result as JSON
             render outPut
             return
         }
         result.put('isError', false)
-        result.put('obj', productName)
+        result.put('obj', productItem)
         outPut = result as JSON
         render outPut
     }
@@ -96,10 +96,10 @@ class ProductNameController {
         LinkedHashMap result = new LinkedHashMap()
         result.put('isError', true)
         String outPut
-        ProductName productName = ProductName.get(id)
-        if (productName) {
+        ProductItem productItem = ProductItem.get(id)
+        if (productItem) {
             try {
-                productName.delete(flush: true)
+                productItem.delete(flush: true)
                 result.put('isError', false)
                 result.put('message', "Product deleted successfully.")
                 outPut = result as JSON
@@ -126,7 +126,7 @@ class ProductNameController {
 }
 
 
-class ProductNameCommand{
+class ProductItemCommand{
 
     Long id
     String name

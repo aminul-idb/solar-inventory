@@ -6,7 +6,7 @@ import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 @Transactional
 class ImportService {
 
-    static final String[] sortColumns = ['id','lcDetails']
+    static final String[] sortColumns = ['id','lcSettings']
     LinkedHashMap importPaginateList(GrailsParameterMap params){
         int iDisplayStart = params.iDisplayStart ? params.getInt('iDisplayStart') : CommonUtils.DEFAULT_PAGINATION_START
         int iDisplayLength = params.iDisplayLength ? params.getInt('iDisplayLength') : CommonUtils.DEFAULT_PAGINATION_LENGTH
@@ -23,7 +23,7 @@ class ImportService {
         def results = c.list(max: iDisplayLength, offset: iDisplayStart) {
 
             if (sSearch) {
-                like("lcDetails", sSearch)
+                like("lcSettings", sSearch)
             }
 
             order(sortColumn, sSortDir)
@@ -44,7 +44,7 @@ class ImportService {
                 }
                 entryDateStr =anImport.entryDate? CommonUtils.getUiDateStr(anImport.entryDate):''
                 importDateStr =anImport.importDate? CommonUtils.getUiDateStr(anImport.importDate):''
-                dataReturns.add([DT_RowId: anImport.id, 0: serial, 1: anImport.lcDetails,2:anImport.productName.name, 3:entryDateStr, 4:importDateStr, 5:anImport.status, 6:''])
+                dataReturns.add([DT_RowId: anImport.id, 0: serial, 1: anImport.lcSettings.lcNo,2:anImport.productItem.name, 3:anImport.amount, 4:entryDateStr, 5:importDateStr, 6:anImport.status.value, 7:''])
             }
         }
         return [totalCount:totalCount,results:dataReturns]

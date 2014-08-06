@@ -2,13 +2,12 @@ package com.startup.inventory
 
 import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
-import com.startup.inventory.SubCat
 
 @Transactional
-class SubCatService {
+class CategoryTypeService {
 
     static final String[] sortColumns = ['id','name']
-    LinkedHashMap subCatPaginateList(GrailsParameterMap params){
+    LinkedHashMap categoryTypePaginateList(GrailsParameterMap params){
         int iDisplayStart = params.iDisplayStart ? params.getInt('iDisplayStart') : CommonUtils.DEFAULT_PAGINATION_START
         int iDisplayLength = params.iDisplayLength ? params.getInt('iDisplayLength') : CommonUtils.DEFAULT_PAGINATION_LENGTH
         String sSortDir = params.sSortDir_0 ? params.sSortDir_0 : CommonUtils.DEFAULT_PAGINATION_SORT_ORDER
@@ -20,7 +19,7 @@ class SubCatService {
         }
         String sortColumn = CommonUtils.getSortColumn(sortColumns,iSortingCol)
         List dataReturns = new ArrayList()
-        def c = SubCat.createCriteria()
+        def c = CategoryType.createCriteria()
         def results = c.list(max: iDisplayLength, offset: iDisplayStart) {
 
             if (sSearch) {
@@ -35,13 +34,13 @@ class SubCatService {
             if (sSortDir.equals(CommonUtils.SORT_ORDER_DESC)) {
                 serial = (totalCount + 1) - iDisplayStart
             }
-            results.each { SubCat subCat ->
+            results.each { CategoryType categoryType ->
                 if (sSortDir.equals(CommonUtils.SORT_ORDER_ASC)) {
                     serial++
                 } else {
                     serial--
                 }
-                dataReturns.add([DT_RowId: subCat.id, 0: serial, 1: subCat.name,2:subCat.description, 3:subCat.status.name(),4:subCat.catName.name , 5: ''])
+                dataReturns.add([DT_RowId: categoryType.id, 0: serial, 1: categoryType.name,2:categoryType.description, 3:categoryType.status.name(), 4: ''])
             }
         }
         return [totalCount:totalCount,results:dataReturns]

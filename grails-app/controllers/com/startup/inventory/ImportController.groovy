@@ -11,14 +11,16 @@ class ImportController {
     def importService
 
     def index() {
+        List<ProductItem> productItemList = ProductItem.list(sort: 'categoryType')
+
         LinkedHashMap resultMap = importService.importPaginateList(params)
 
         if (!resultMap || resultMap.totalCount == 0) {
-            render(view: 'index', model: [dataReturn: null, totalCount: 0])
+            render(view: 'index', model: [dataReturn: null, totalCount: 0, productItemList: productItemList])
             return
         }
         int totalCount = resultMap.totalCount
-        render(view: 'index', model: [dataReturn: resultMap.results, totalCount: totalCount])
+        render(view: 'index', model: [dataReturn: resultMap.results, totalCount: totalCount, productItemList: productItemList])
     }
 
     def list() {
@@ -39,67 +41,84 @@ class ImportController {
 
     }
 
-    @Transactional
-    def save(Import anImport) {
+    //@Transactional
+    def save() {
 
-        print("Params-------"+params)
+        print(">>" + params)
+
 
         LinkedHashMap result = new LinkedHashMap()
         result.put('isError', true)
         String outPut
 
-        anImport.entryDate=new Date()
-//        anImport.importDate=new Date()
+        //params.entryDate=new Date()
+        //LcSettings lcSettings = new LcSettings(params)
+        //lcSettings.save(flush:true)
 
-        if (anImport == null) {
-            result.put('isError', true)
-            result.put('message', 'Import Updated Failed')
-            outPut = result as JSON
-            render outPut
-            return
+        //result.put('isError', false)
+        //result.put('message', 'Import Updated successfully')
+        //outPut = result as JSON
+        //render outPut*/
+
+        // save
+        def productItemList = params.productItemId
+        def amountList = params.amount
+        def productCheckList = params.productCheck
+
+
+        /*Date.parse('dd/MM/yyyy', params.dob)*/
+
+        for(int i=0; i<productItemList.length; i++){
+        Import anImport = new Import()
+            if ( (amountList[i] != '') && (productItemList[i] in productCheckList == true)  ){
+                println "amount =" + amountList[i] + "| product Id =" + productItemList[i]
+                params.entryDate=new Date()
+                params.amount = amountList[i] as String
+                ProductItem p = ProductItem.get(productItemList[i])
+                params.productItem = p
+                Import registration = new Import(params)
+                registration.save(flush:true)
+            }
         }
-
-        if (anImport.hasErrors()) {
-            result.put('isError', true)
-            result.put('message', 'Import Updated Failed')
-            outPut = result as JSON
-            render outPut
-            return
-        }
-
-
-        anImport.save flush:true
         result.put('isError', false)
         result.put('message', 'Import Updated successfully')
         outPut = result as JSON
         render outPut
-        return
 
     }
 
     def edit(Long id) {
+
         if (!request.method == 'POST') {
             redirect(action: 'index')
             return
         }
         LinkedHashMap result = new LinkedHashMap()
-        result.put('isError', true)
         String outPut
+
         Import anImport = Import.read(id)
         if (!anImport) {
+            result.put('isError', true)
             result.put('message', 'Import name not found')
             outPut = result as JSON
             render outPut
             return
         }
+
         result.put('isError', false)
-        result.put('obj', anImport)
+        result.put('import', anImport)
+        result.put('productItem',anImport.productItem.name)
+        result.put('categoryType',anImport.productItem.categoryType.name)
+
+
+
         outPut = result as JSON
         render outPut
     }
 
     def delete(Long id) {
         LinkedHashMap result = new LinkedHashMap()
+
         result.put('isError', true)
         String outPut
         Import anImport = Import.get(id)
@@ -128,5 +147,21 @@ class ImportController {
         outPut = result as JSON
         render outPut
         return
+    }
+
+
+    //
+    def importProduct(){
+        List<ProductItem> productItemList = ProductItem.list(sort: 'categoryType')
+
+        LinkedHashMap resultMap = importService.importPaginateList(params)
+
+        if (!resultMap || resultMap.totalCount == 0) {
+            render(view: 'index', model: [dataReturn: null, totalCount: 0, productItemList: productItemList])
+            return
+        }
+        int totalCount = resultMap.totalCount
+        render(view: 'index', model: [dataReturn: resultMap.results, totalCount: totalCount, productItemList: productItemList])
+
     }
 }

@@ -2,16 +2,14 @@ package com.startup.inventory
 
 class Import {
 
-    String lcDetails
-    ProductName productName
-    Date entryDate
-    Date importDate
-    String description
+    ProductItem productItem
+    String amount
     Status status
-
+    LcSettings lcSettings
+    Date entryDate = new Date()
+    Date importDate
 
     static constraints = {
-        importDate nullable: true
         entryDate nullable: true
     }
 }

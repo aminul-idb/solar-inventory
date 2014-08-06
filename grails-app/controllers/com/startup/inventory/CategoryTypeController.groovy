@@ -2,16 +2,15 @@ package com.startup.inventory
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
-import com.startup.inventory.CatName
 import grails.transaction.Transactional
 import org.springframework.dao.DataIntegrityViolationException
 
 @Secured(['ROLE_SUPER_ADMIN'])
-class CatNameController {
-    def catNameService
+class CategoryTypeController {
+    def categoryTypeService
 
     def index() {
-        LinkedHashMap resultMap = catNameService.catNamePaginateList(params)
+        LinkedHashMap resultMap = categoryTypeService.categoryTypePaginateList(params)
 
         if (!resultMap || resultMap.totalCount == 0) {
             render(view: 'index', model: [dataReturn: null, totalCount: 0])
@@ -24,7 +23,7 @@ class CatNameController {
     def list() {
         LinkedHashMap gridData
         String result
-        LinkedHashMap resultMap = catNameService.catNamePaginateList(params)
+        LinkedHashMap resultMap = categoryTypeService.categoryTypePaginateList(params)
 
         if (!resultMap || resultMap.totalCount == 0) {
             gridData = [iTotalRecords: 0, iTotalDisplayRecords: 0, aaData: null]
@@ -40,13 +39,13 @@ class CatNameController {
     }
 
     @Transactional
-    def save(CatName catName) {
+    def save(CategoryType categoryType) {
 
         LinkedHashMap result = new LinkedHashMap()
         result.put('isError', true)
         String outPut
 
-        if (catName == null) {
+        if (categoryType == null) {
             result.put('isError', true)
             result.put('message', 'Category Updated Failed')
             outPut = result as JSON
@@ -54,7 +53,7 @@ class CatNameController {
             return
         }
 
-        if (catName.hasErrors()) {
+        if (categoryType.hasErrors()) {
             result.put('isError', true)
             result.put('message', 'Category Updated Failed')
             outPut = result as JSON
@@ -62,7 +61,7 @@ class CatNameController {
             return
         }
 
-        catName.save flush:true
+        categoryType.save flush:true
         result.put('isError', false)
         result.put('message', 'Category Updated successfully')
         outPut = result as JSON
@@ -79,15 +78,15 @@ class CatNameController {
         LinkedHashMap result = new LinkedHashMap()
         result.put('isError', true)
         String outPut
-        CatName catName = CatName.read(id)
-        if (!catName) {
+        CategoryType categoryType = CategoryType.read(id)
+        if (!categoryType) {
             result.put('message', 'Category name not found')
             outPut = result as JSON
             render outPut
             return
         }
         result.put('isError', false)
-        result.put('obj', catName)
+        result.put('obj', categoryType)
         outPut = result as JSON
         render outPut
     }
@@ -96,10 +95,10 @@ class CatNameController {
         LinkedHashMap result = new LinkedHashMap()
         result.put('isError', true)
         String outPut
-        CatName catName = CatName.get(id)
-        if (catName) {
+        CategoryType categoryType = CategoryType.get(id)
+        if (categoryType) {
             try {
-                catName.delete(flush: true)
+                categoryType.delete(flush: true)
                 result.put('isError', false)
                 result.put('message', "Category deleted successfully.")
                 outPut = result as JSON
@@ -126,7 +125,8 @@ class CatNameController {
 }
 
 
-class CatNameCommand{
+
+class CategoryTypeCommand{
 
     Long id
     String name

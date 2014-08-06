@@ -15,23 +15,24 @@
             <li   class="active">
                 <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Settings</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="${g.createLink(controller: 'catName',action: 'index')}">Add Category</a></li>
+                    <li><a href="${g.createLink(controller: 'categoryType',action: 'index')}">Add Category</a></li>
                     %{--<li><a href="${g.createLink(controller: 'subCat',action: 'index')}">Add Sub Category</a></li>--}%
-                    <li><a href="${g.createLink(controller: 'productName',action: 'index')}">Add Product</a></li>
+                    <li><a href="${g.createLink(controller: 'productItem',action: 'index')}">Add Product</a></li>
                 </ul>
             </li>
 
             <li>
                 <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Product Manipulation</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="${g.createLink(controller: 'import',action: 'index')}">Product Import</a></li>
+                    <li><a href="${g.createLink(controller: 'lcSettings',action: 'index')}">LC Settings</a></li>
+                    <li><a href="${g.createLink(controller: 'import',action: 'index')}">Import Product</a></li>
                     <li><a href="graph_morris.html">Product Distribution</a></li>
-                    <li><a href="graph_rickshaw.html">Rickshaw Charts</a></li>
+                    %{--<li><a href="graph_rickshaw.html">Rickshaw Charts</a></li>
                     <li><a href="graph_peity.html">Peity Charts</a></li>
-                    <li><a href="graph_sparkline.html">Sparkline Charts</a></li>
+                    <li><a href="graph_sparkline.html">Sparkline Charts</a></li>--}%
                 </ul>
             </li>
-            <li>
+            %{--<li>
                 <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">Mailbox </span><span class="label label-warning pull-right">16/24</span></a>
                 <ul class="nav nav-second-level">
                     <li><a href="mailbox.html">Inbox</a></li>
@@ -51,7 +52,7 @@
                     <li><a href="form_file_upload.html">File Upload</a></li>
                     <li><a href="form_editors.html">Text Editor</a></li>
                 </ul>
-            </li>
+            </li>--}%
         </ul>
     </div>
 </nav>

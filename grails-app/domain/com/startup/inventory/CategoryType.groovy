@@ -1,6 +1,6 @@
 package com.startup.inventory
 
-class CatName {
+class CategoryType {
 
     String name
     String description

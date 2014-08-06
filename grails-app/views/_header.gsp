@@ -10,11 +10,11 @@
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+                <span class="m-r-sm text-muted welcome-message">Welcome to Japan Solar Tech.</span>
             </li>
 
             <li>
-                <a href="login.html">
+                <a href="${createLink(controller: "logout")}">
                     <i class="fa fa-sign-out"></i> Log out
                 </a>
             </li>

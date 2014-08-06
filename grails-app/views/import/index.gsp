@@ -38,43 +38,36 @@
             <div class="ibox-content p-xl">
 
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-12">
                         <section class="panel">
                             <div class="panel-body">
                                 <div class="form">
-                                    <form class="cmxform form-horizontal " id="create-form">
+                                    <form class="cmxform form-horizontal " id="create-form-product">
                                         <g:hiddenField name="id"/>
 
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-3">
                                             <div class="col-md-12">
-                                                <label for="lcDetails" class="control-label">Enter LC</label>
-                                                <g:textField class="form-control" id="lcDetails" tabindex="1" name="lcDetails"
-                                                             placeholder="Enter LC."/>
-                                                <span for="lcDetails" class="help-block"></span>
+                                                <label for="lcSettings" class="control-label">LC No.</label>
+
+                                                <select name="lcSettings" id="lcSettings" class="form-control lcSettings" required="required">
+                                                    <option value="">Select Lc</option>
+                                                    <g:each in="${com.startup.inventory.LcSettings.list()}" var="lcSettings" >
+                                                        <option value="${lcSettings.id}">${lcSettings.lcNo}</option>
+                                                    </g:each>
+                                                </select>
                                             </div>
                                         </div>
 
-                                        <div class="form-group col-md-4">
-                                            <div class="col-md-12">
-                                                <label for="productName" class=" control-label">Product Name </label><br>
-                                                <g:select class="form-control" id="productName" name='productName'
-                                                          noSelection="${['': 'Select One...']}"
-                                                          from='${com.startup.inventory.ProductName.list()}'
-                                                          optionKey="id" optionValue="name"></g:select>
-                                                <span class="help-block" for="productName"></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-3">
                                             <div class="col-md-12">
                                                 <label for="datepicker" class="control-label ">Import Date</label>
                                                 <input type="text" class="form-control datepicker" id="datepicker"
-                                                             name="importDate" placeholder="Enter Import Date."/>
+                                                       name="importDate" placeholder="Enter Import Date."/>
                                                 <span class="help-block" for="datepicker"></span>
                                             </div>
                                         </div>
 
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-3">
                                             <div class="col-md-12">
                                                 <label for="description" class="control-label">Import Description</label>
                                                 <g:textField class="form-control" id="description"
@@ -83,20 +76,127 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-3">
                                             <div class="col-md-12">
                                                 <label for="status" class=" control-label">Status </label><br>
                                                 <g:select class="form-control" id="status" name='status'
-                                                          noSelection="${['': 'Select One...']}"
                                                           from='${com.startup.inventory.Status.values()}'
-                                                          optionKey="key" optionValue="value"></g:select>
+                                                          optionKey="key" optionValue="value"></g:select> %{--noSelection="${['': 'Select One...']}"--}%
                                                 <span class="help-block" for="status"></span>
                                             </div>
                                         </div>
 
+                                        <div class="col-md-12">
+                                            <table class="table table-striped table-hover table-bordered" id="productList-table">
+                                                <thead>
+                                                <tr>
+                                                    <th>Check Mark</th>
+                                                    <th>Product Name</th>
+                                                    <th>Category Name</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <g:each in="${productItemList}" var="productItem" status="i">
+                                                    <tr>
+                                                        <input type="hidden" name="productItemId" value="${productItem?.id}" />
+                                                        <td><input type="checkbox" name="productCheck" value="${productItem?.id}" /></td>
+                                                        <td>${productItem?.name}</td>
+                                                        <td>${productItem?.categoryType?.name}</td>
+                                                        <td><input type="number" name="amount" /></td>
+                                                    </tr>
+                                                </g:each>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                        %{-- end single edit--}%
+
+
                                         <div class="form-group">
-                                            <div class="col-md-offset-8 col-lg-4">
+                                            <div class="col-md-offset-8 col-md-4">
                                                 <button name="submit" class="btn btn-primary" tabindex="3" type="submit">Save</button>
+                                                <button class="btn btn-default" tabindex="4" type="reset">Cancel</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                    <form class="cmxform form-horizontal" id="edit-form-product">
+                                        <input type="hidden" id="importProduct" name="id" />
+
+                                        <input type="hidden" id="importProduct" name="id" />
+
+                                        <div class="form-group col-md-3">
+                                            <div class="col-md-12">
+                                                <label for="lcSettings" class="control-label">LC No.</label>
+
+                                                <select name="lcSettings" id="editLcSettings" class="form-control" required="required">
+                                                    <option value="">Select Lc</option>
+                                                    <g:each in="${com.startup.inventory.LcSettings.list()}" var="lcSettings" >
+                                                        <option value="${lcSettings.id}">${lcSettings.lcNo}</option>
+                                                    </g:each>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <div class="col-md-12">
+                                                <label for="datepicker" class="control-label ">Import Date</label>
+                                                <input type="text" class="form-control datepicker" id="datepicker"
+                                                       name="importDate" placeholder="Enter Import Date."/>
+                                                <span class="help-block" for="datepicker"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <div class="col-md-12">
+                                                <label for="description" class="control-label">Import Description</label>
+                                                <g:textField class="form-control" id="description"
+                                                             name="description" placeholder="Enter Description."/>
+                                                <span class="help-block" for="description"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <div class="col-md-12">
+                                                <label for="status" class=" control-label">Status </label><br>
+                                                <g:select class="form-control" id="status" name='status'
+                                                          from='${com.startup.inventory.Status.values()}'
+                                                          optionKey="key" optionValue="value"></g:select> %{--noSelection="${['': 'Select One...']}"--}%
+                                                <span class="help-block" for="status"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            %{-- single edit--}%
+                                            <table class="table table-striped table-hover table-bordered" id="importProductEdit">
+                                                <thead>
+                                                <tr>
+                                                    <th>Product Name</th>
+                                                    <th>Category Name</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    %{--<input type="hidden" name="productItemId" value="" id="productItemId" />--}%
+                                                    <td><input type="text" name="productItem" id="productItem" disabled="disabled" /></td>
+                                                    <td><input type="text" name="categoryType" id="categoryType" disabled="disabled" /></td>
+                                                    <td><input type="number" name="amount" id="amount" /></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        %{-- end single edit--}%
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-offset-8 col-md-4">
+                                                <button name="submit" class="btn btn-primary" tabindex="3" id="edit" type="submit">Save</button>
                                                 <button class="btn btn-default" tabindex="4" type="reset">Cancel</button>
                                             </div>
                                         </div>
@@ -106,6 +206,7 @@
                             </div>
                         </section>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -127,8 +228,9 @@
                                         <thead>
                                         <tr>
                                             <th>Serial</th>
-                                            <th>LC Detail</th>
+                                            <th>LC No.</th>
                                             <th>Product Name</th>
+                                            <th>Product Amount</th>
                                             <th>Entry Date</th>
                                             <th>Import Date</th>
                                             <th>Status</th>
@@ -144,6 +246,7 @@
                                                 <td>${animated[3]}</td>
                                                 <td>${animated[4]}</td>
                                                 <td>${animated[5]}</td>
+                                                <td>${animated[6]}</td>
                                                 <td>
                                                     <sec:access controller="import" action="edit">
                                                         <span class="col-xs-6"><a href=""
@@ -180,8 +283,10 @@
 
 <script>
 
+    jQuery(function ($) {
 
-    $('#create-form').validate({
+        //$('#edit-form-product').hide();
+        $('#create-form-product').validate({
         errorElement: 'label',
         errorClass: 'help-block',
         focusInvalid: false,
@@ -217,12 +322,13 @@
         },
         submitHandler: function (form) {
             $.ajax({
-                url: "${createLink(controller: 'import', action: 'save')}",
+                url: "${createLink(controller: 'import', action: 'save')}" ,
                 type: 'post',
                 dataType: "json",
-                data: $("#create-form").serialize(),
+                data: $("#create-form-product").serialize(),
                 success: function (data) {
-                    clearForm(form);
+                    //clearForm(form);
+                    clearForm('#create-form-product');
                     var table = $('#list-table').DataTable();
                     table.ajax.reload();
                     setTimeout(function() {
@@ -237,7 +343,32 @@
         }
     });
 
-    jQuery(function ($) {
+        $('#edit').click(function(e){
+            jQuery.ajax({
+                url: "${createLink(controller: 'import', action: 'save')}",
+                type: 'post',
+                dataType: "json",
+                data: $("#edit-form-product").serialize(),
+                success: function (data) {
+                    //clearForm(form);
+                    clearForm('#edit-form-product');
+                    var table = $('#list-table').DataTable();
+                    table.ajax.reload();
+                    setTimeout(function() {
+                        $.gritter.add({
+                            title: data.message
+                        });
+                    }, 2000);
+                },
+                failure: function (data) {
+                }
+            });
+            e.preventDefault();
+
+        });
+
+
+
 
         $('#datepicker').datepicker({
             format: 'dd/mm/yyyy',
@@ -247,7 +378,7 @@
 
 
         var oTable1 = $('#list-table').dataTable({
-//        "sDom": "<'row'<'col-md-4'><'col-md-4'><'col-md-4'f>r>t<'row'<'col-md-4'l><'col-md-4'i><'col-md-4'p>>",
+            "sDom": " ", //<'row'<'col-md-4'><'col-md-4'><'col-md-4'f>r>t<'row'<'col-md-4'l><'col-md-4'i><'col-md-4'p>>
 //            "bProcessing": true,
             "bAutoWidth": true,
             "bServerSide": true,
@@ -257,7 +388,7 @@
                 if (aData.DT_RowId == undefined) {
                     return true;
                 }
-                $('td:eq(6)', nRow).html(getActionButtons(nRow, aData));
+                $('td:eq(7)', nRow).html(getActionButtons(nRow, aData));
                 return nRow;
             },
             "aoColumns": [
@@ -267,13 +398,29 @@
                 { "bSortable": false },
                 { "bSortable": false },
                 { "bSortable": false },
+                { "bSortable": false },
                 { "bSortable": false }
 
             ]
         });
+
+        var oTable2 = $('#productList-table').dataTable({
+            "sDom": " ",
+            aoColumns: [
+                { "bSortable": false },
+                { "bSortable": false },
+                { "bSortable": false },
+                { "bSortable": false }
+            ]
+        });
+
         $('#add-new-btn').click(function (e) {
             $("#animportCreate").toggle(500);
-            $("#lcDetails").focus();
+            $("#lcSettings").focus();
+            $('#create-form-product').show();
+            $('#edit-form-product').hide();
+
+
             e.preventDefault();
         });
 
@@ -283,18 +430,28 @@
             jQuery.ajax({
                 type: 'POST',
                 dataType: 'JSON',
-                url: "${g.createLink(controller: 'import',action: 'edit')}?id=" + referenceId,
+                url: "${g.createLink(controller: 'import',action: 'edit')}?id=" + referenceId+"&edit="+"edit",
                 success: function (data, textStatus) {
+
                     if (data.isError == false) {
-                        clearForm('#create-form');
-                        $('#id').val(data.obj.id);
-                        $('#lcDetails').val(data.obj.lcDetails);
-                        $('#productName').val(data.obj.productName.id);
-                        $('#datepicker').datepicker('setDate', new Date(data.obj.importDate));
-                        $('#description').val(data.obj.description);
-                        $('#status').val(data.obj.status ? data.obj.status.name :'');
+                        $('#create-form-product').hide();
+                        $('#edit-form-product').show();
+
+                        $('#importProduct').val(data.import.id);
+                        $('#editLcSettings').val(data.import.lcSettings.id);
+                        //$('#productItem').val(data.obj.productItem.id);
+                        $('.datepicker').datepicker('setDate', new Date(data.import.importDate));
+                        $('.description').val(data.import.description);
+                        $('.status').val(data.import.status ? data.import.status.name :'');
                         $("#animportCreate").show(500);
-                        $("#lcDetails").focus();
+
+                        $('#productItem').val(data.productItem);
+                        $('#categoryType').val(data.categoryType);
+                        $('#amount').val(data.import.amount);
+
+                        document.getElementById("lcSettings").disabled=true;
+                        document.getElementById("datepicker").disabled=true;
+
                     } else {
                         alert(data.message);
                     }

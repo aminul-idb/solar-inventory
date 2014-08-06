@@ -4,7 +4,7 @@ import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 
 @Transactional
-class ProductNameService {
+class ProductItemService {
 
     static final String[] sortColumns = ['id','name']
     LinkedHashMap productNamePaginateList(GrailsParameterMap params){
@@ -19,7 +19,7 @@ class ProductNameService {
         }
         String sortColumn = CommonUtils.getSortColumn(sortColumns,iSortingCol)
         List dataReturns = new ArrayList()
-        def c = ProductName.createCriteria()
+        def c = ProductItem.createCriteria()
         def results = c.list(max: iDisplayLength, offset: iDisplayStart) {
 
             if (sSearch) {
@@ -33,13 +33,13 @@ class ProductNameService {
             if (sSortDir.equals(CommonUtils.SORT_ORDER_DESC)) {
                 serial = (totalCount + 1) - iDisplayStart
             }
-            results.each { ProductName productName ->
+            results.each { ProductItem productItem ->
                 if (sSortDir.equals(CommonUtils.SORT_ORDER_ASC)) {
                     serial++
                 } else {
                     serial--
                 }
-                dataReturns.add([DT_RowId: productName.id, 0: serial, 1: productName.name,2:productName.description, 3:productName.status.name(),4:productName.catName.name, 5: ''])
+                dataReturns.add([DT_RowId: productItem.id, 0: serial, 1: productItem.name,2:productItem.description, 3:productItem.status.name(),4:productItem.categoryType.name, 5: ''])
             }
         }
         return [totalCount:totalCount,results:dataReturns]

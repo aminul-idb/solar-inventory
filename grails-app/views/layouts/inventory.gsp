@@ -27,14 +27,14 @@
 </head>
 <body>
 
-    <g:render template='/leftMenu'/>
-<div id="page-wrapper" class="gray-bg">
-    <g:render template='/header'/>
+    %{--<g:render template='/leftMenu'/>--}%
+%{--<div id="page-wrapper" class="gray-bg">--}%
+    %{--<g:render template='/header'/>--}%
 
     <div class="container">
         <g:layoutBody />
     </div>
-</div>
+%{--</div>--}%
 
 </body>
 </html>

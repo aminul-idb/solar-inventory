@@ -18,14 +18,14 @@ environments {
     development {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://localhost/inventory?useUnicode=yes&characterEncoding=UTF-8"
+            url = "jdbc:mysql://localhost/inventory" //?useUnicode=yes&characterEncoding=UTF-8
 
         }
     }
     test {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-            url = "jdbc:mysql://localhost/inventory?useUnicode=yes&characterEncoding=UTF-8"
+            url = "jdbc:mysql://localhost/inventory" //?useUnicode=yes&characterEncoding=UTF-8
 
         }
     }
